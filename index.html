@@ -745,19 +745,10 @@ async function sendToEmail() {
   };
 
   try {
-    const params = new URLSearchParams();
-    params.append('edition', String(payload.edition));
-    params.append('theme', payload.theme);
-    params.append('newsletter_text', payload.newsletter_text);
-    params.append('newsletter_html', payload.newsletter_html);
-    params.append('linkedin_post', payload.linkedin_post);
-    params.append('recipient', payload.recipient);
-
     await fetch(webhook, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: params.toString(),
-      mode: 'no-cors'
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
     });
 
     status.className = 'send-status on success';
