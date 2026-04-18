@@ -154,6 +154,11 @@
   .send-status.success { border-color: #2d5a2d; background: #0d1a0d; color: #6abf6a; }
   .send-status.fail { border-color: #3a0000; background: #160000; color: #ff6b6b; }
 
+  /* TITLE OPTIONS */
+  .title-opt { padding: 9px 12px; border: 1px solid #1e1e1e; font-size: 12px; color: #666; cursor: pointer; margin-bottom: 6px; line-height: 1.4; transition: all 0.2s; }
+  .title-opt:hover { border-color: #444; color: #ccc; }
+  .title-opt.sel { border-color: var(--yellow); color: var(--yellow); background: #0d0c00; }
+
   /* Past editions notice */
   .past-notice { background: #0a0a00; border: 1px solid #2a2500; padding: 10px 14px; margin-bottom: 14px; font-family: 'DM Mono', monospace; font-size: 10px; color: #665500; display: none; }
   .past-notice.on { display: block; }
@@ -289,6 +294,13 @@
       <div class="nl-wrap" id="nl-out"></div>
       <div class="wc" id="wc"></div>
 
+      <!-- TITLE PICKER -->
+      <div id="title-picker" style="display:none;margin-top:24px;">
+        <div class="tag">Choose a Title</div>
+        <div style="font-family:'DM Mono',monospace;font-size:10px;color:#444;margin-bottom:14px;">Click any title to apply it to the newsletter. It will be included in your email and copy.</div>
+        <div id="title-grid" style="display:flex;gap:16px;flex-wrap:wrap;"></div>
+      </div>
+
       <div style="margin-top:24px;"><div class="tag">LinkedIn Post</div>
         <div class="li-box"><div class="li-text" id="li-out"></div></div>
       </div>
@@ -343,6 +355,7 @@ function getApiKey() { return localStorage.getItem(APIKEY_KEY) || ''; }
 loadSettings();
 
 let selTheme = null;
+let selTitle = '';
 let researchContext = '';
 let pastEditionTopics = '';
 let edNum = 59;
@@ -519,35 +532,41 @@ Focus buckets: ${bucketStr}
 ${dirStr}
 ${avoidStr}
 
-It is April 2026. Surface the most CURRENT and VARIED B2B marketing signals happening right now.
+It is April 2026. You must surface findings across GENUINELY DIFFERENT areas of B2B marketing. This is the most important rule: no two findings can be about the same marketing topic even if they come from different sources.
 
-CRITICAL: Use DIVERSE source types. Do not repeat the same types of signals. Cover each of these angles:
+MANDATORY TOPIC SPREAD — find at least one finding per area below. These are distinct topic territories, not source types:
 
-${researchAngles.map((a, i) => `${i+1}. [${a.type.toUpperCase()}] ${a.desc}`).join('\n')}
+1. CONTENT AND DISTRIBUTION: how B2B companies are creating, distributing, or gating content differently right now
+2. REVENUE AND PIPELINE: what is actually driving pipeline and revenue in B2B in 2026 (data, experiments, channel shifts)
+3. AI IN MARKETING WORKFLOW: specific ways AI tools are changing how marketing teams operate day to day
+4. BRAND AND POSITIONING: how B2B companies are thinking about brand, category creation, or repositioning
+5. BUYER PSYCHOLOGY: a specific insight about how B2B buyers think, decide, or behave (one angle only, not the whole buyer journey)
+6. CHANNEL SIGNALS: what is working or dying on LinkedIn, email, paid, dark social, communities right now
+7. SALES AND MARKETING ALIGNMENT: what is actually changing at the SDR/marketing handoff, or ABM execution
+8. DATA AND MEASUREMENT: how B2B marketers are measuring, attributing, or reporting differently
+9. YOUTUBE OR PODCAST SIGNAL: a specific argument or finding from a B2B marketing creator (Chris Walker, Dave Gerhardt, Peep Laja, Liam Moroney, Rand Fishkin) from a real 2025 or 2026 video or episode
+10. CONTRARIAN OR SURPRISING: one finding that challenges what most B2B marketers currently believe
 
-For each finding:
-- The specific claim or signal (be precise, use real numbers)
-- A real quote if available (from report, executive, analyst, YouTube creator, practitioner)
-- Source name and date
-- Why it matters to a senior B2B marketer right now
+${researchAngles.map((a, i) => '').join('')}
 
-IMPORTANT: Include at least 2 YouTube-sourced findings from real videos by B2B marketing creators. Include at least 1 contrarian or unexpected finding. Include at least 1 India/Asia-Pacific signal.
+For each finding be specific: real numbers, real company names, real report names. No vague generalisations.
 
 Return as JSON only:
 {"findings": [
   {
+    "topic_area": "one of the 10 areas above",
     "category": "analyst|platform|market|community|brand|youtube|contrarian|india",
-    "headline": "...",
-    "detail": "...",
+    "headline": "specific claim in one sentence",
+    "detail": "2-3 sentences expanding with specifics and numbers",
     "quote": "exact quote if available, else empty string",
     "attribution": "name, title, company or channel name",
     "source": "publication, platform, YouTube channel, or report name",
     "date": "month year or year",
-    "relevance": "why this matters to a B2B marketer"
+    "relevance": "one sentence on why this matters to a B2B marketer right now"
   }
 ]}
 
-Aim for 12 to 16 diverse findings. No two findings should feel like the same angle.`;
+Return exactly 10 findings, one per topic area. Each must be a genuinely different part of B2B marketing.`;
 
     statusEl.textContent = 'Processing research from 8 source angles...';
 
@@ -596,30 +615,47 @@ async function proposeThemes(buckets, dir, avoidStr, count, isMore) {
     const alreadyProposed = allThemes.map(t => t.headline).join(', ');
     const alreadyStr = alreadyProposed ? `\n\nAlready proposed (do NOT repeat or overlap): ${alreadyProposed}` : '';
 
+    // Assign a distinct story archetype to each theme slot to prevent convergence
+    const archetypes = [
+      { name: 'DATA STORY', instruction: 'Built primarily around a surprising or counterintuitive data finding. The central argument is driven by what the numbers say. Sections cover: what the data shows, why most marketers are misreading it, and what to do instead.' },
+      { name: 'PRACTITIONER SHIFT', instruction: 'About how real marketing practitioners or teams are changing their actual day-to-day work. Grounded in brand examples and community signals. Not theoretical. Sections cover: what changed, how teams are adapting in practice, and what the new playbook looks like.' },
+      { name: 'CONTRARIAN TAKE', instruction: 'Challenges something the majority of B2B marketers currently believe or do. Takes a clear opposing position and defends it. Must use at least one YouTube or podcast creator signal. Sections cover: the conventional wisdom being challenged, the evidence against it, and the alternative approach.' },
+      { name: 'EMERGING SIGNAL', instruction: 'About something that is early but accelerating. A trend or shift that most B2B marketers have not fully registered yet. Sections cover: what is starting to happen, early evidence from brands or data, and why it will matter more in 12 to 18 months.' },
+      { name: 'STRATEGIC LENS', instruction: 'A broader strategic or structural shift in how B2B marketing operates at a leadership level. Think budget allocation, org structure, measurement frameworks, or the CMO agenda. Sections cover: the structural change, how leading companies are responding, and what the laggards are missing.' }
+    ];
+
+    const archetypeSlice = archetypes.slice(0, count);
+    const archetypeInstructions = archetypeSlice.map((a, i) =>
+      `Theme ${i+1} MUST use the "${a.name}" archetype: ${a.instruction}`
+    ).join('\n\n');
+
     const prompt = `Propose ${count} newsletter theme directions for Edition #${edNum} of Vik's M.I.X using this research:
 
 ${researchContext}
 ${avoidStr || ''}
 ${alreadyStr}
 
-Each theme must:
-- Connect 3 angles into ONE coherent B2B marketing story
-- Be grounded in actual research findings above
-- Feel like a connected narrative, not 3 random topics
-- Be a FRESH angle not covered in past editions
-- Be relevant and timely for a senior B2B marketer reading in April 2026
-- Draw from VARIED source types (mix analyst, YouTube, brand, community signals)
+CRITICAL RULE: Each theme must use a DIFFERENT story archetype as assigned below. This is mandatory. The archetypes exist to prevent all themes from converging on the same angle.
+
+${archetypeInstructions}
+
+Additional rules for all themes:
+- Each theme must draw from DIFFERENT topic areas in the research (no two themes about the same topic)
+- Each theme must feel like a genuinely different newsletter edition, not a variation on the same idea
+- Be grounded in specific findings from the research above
+- Be fresh relative to past editions
+- Be relevant for a senior B2B marketer in April 2026
 
 Respond ONLY in this JSON, no markdown, no preamble:
 {"themes":[
   {
-    "headline": "sharp editorial headline, not clickbait",
-    "narrative": "2 sentences on the unifying thread across all 3 sections",
+    "archetype": "the archetype name used",
+    "headline": "sharp editorial headline that reflects the archetype, not clickbait",
+    "narrative": "2 sentences on the unifying thread — must sound different from every other theme",
     "sections": ["section 1 title", "section 2 title", "section 3 title"],
-    "signal": "1 sentence grounded in a specific data point from the research",
+    "signal": "1 sentence grounded in a specific data point or finding from the research",
     "keyQuote": "the single most compelling quote from the research for this theme",
-    "keyQuoteSource": "attribution for that quote",
-    "sources": ["type1", "type2", "type3"]
+    "keyQuoteSource": "attribution for that quote"
   }
 ]}`;
 
@@ -672,7 +708,10 @@ function appendThemeCards(themes, startIndex) {
     card.className = 'theme-card';
     card.dataset.index = globalIndex;
     card.innerHTML = `
-      <div class="theme-num">0${globalIndex+1}</div>
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:4px;">
+        <div class="theme-num">0${globalIndex+1}</div>
+        ${t.archetype ? `<div style="font-family:'DM Mono',monospace;font-size:9px;color:#444;border:1px solid #1a1a1a;padding:3px 8px;text-transform:uppercase;letter-spacing:1px;white-space:nowrap;margin-top:4px;">${t.archetype}</div>` : ''}
+      </div>
       <div class="theme-hl">${t.headline}</div>
       <div class="theme-narr">${t.narrative}</div>
       <div class="theme-tags">${t.sections.map(s => '<div class="theme-tag">' + s + '</div>').join('')}</div>
@@ -763,17 +802,47 @@ VALIDATION_END
 Then:
 LINKEDIN_START
 [post text here]
-LINKEDIN_END`;
+LINKEDIN_END
+
+Then generate 12 title options across 4 framing styles, 3 per style:
+TITLES_START
+{
+  "styles": [
+    {
+      "style": "Clean and positive",
+      "description": "Clear, accessible, forward-looking",
+      "titles": ["title 1", "title 2", "title 3"]
+    },
+    {
+      "style": "Sharp and insight-led",
+      "description": "Your natural voice, opinionated, specific",
+      "titles": ["title 1", "title 2", "title 3"]
+    },
+    {
+      "style": "Provocative and high-impact",
+      "description": "Challenges, disrupts, creates tension",
+      "titles": ["title 1", "title 2", "title 3"]
+    },
+    {
+      "style": "Newsletter-friendly",
+      "description": "Fits Vik's M.I.X tone, warm but smart",
+      "titles": ["title 1", "title 2", "title 3"]
+    }
+  ]
+}
+TITLES_END`;
 
     const response = await callClaude([{ role: 'user', content: prompt }], 4096);
     clearInterval(iv);
 
     const valMatch = response.match(/VALIDATION_START([\s\S]*?)VALIDATION_END/);
     const liMatch = response.match(/LINKEDIN_START([\s\S]*?)LINKEDIN_END/);
+    const titlesMatch = response.match(/TITLES_START([\s\S]*?)TITLES_END/);
 
     let nlText = response;
     if (valMatch) nlText = nlText.replace(/VALIDATION_START[\s\S]*?VALIDATION_END/, '');
     if (liMatch) nlText = nlText.replace(/LINKEDIN_START[\s\S]*?LINKEDIN_END/, '');
+    if (titlesMatch) nlText = nlText.replace(/TITLES_START[\s\S]*?TITLES_END/, '');
     nlText = nlText.trim();
 
     finalNewsletter = nlText;
@@ -783,9 +852,19 @@ LINKEDIN_END`;
       finalValidation = valMatch ? JSON.parse(valMatch[1].trim().replace(/```json|```/g, '')) : [];
     } catch(e) { finalValidation = []; }
 
+    let titleStyles = [];
+    try {
+      if (titlesMatch) {
+        const tc = titlesMatch[1].trim().replace(/```json|```/g, '');
+        const tp = JSON.parse(tc);
+        titleStyles = tp.styles || [];
+      }
+    } catch(e) { titleStyles = []; }
+
     renderNL(nlText);
     if (finalLinkedIn) document.getElementById('li-out').textContent = finalLinkedIn;
     renderVal(finalValidation);
+    renderTitles(titleStyles);
 
     const wc = nlText.split(/\s+/).length;
     const wcEl = document.getElementById('wc');
@@ -861,6 +940,34 @@ function renderVal(data) {
   ).join('');
 }
 
+function renderTitles(styles) {
+  const wrap = document.getElementById('title-picker');
+  if (!styles || !styles.length) { wrap.style.display = 'none'; return; }
+  wrap.style.display = 'block';
+  const grid = document.getElementById('title-grid');
+  grid.innerHTML = '';
+  styles.forEach(s => {
+    const col = document.createElement('div');
+    col.style.cssText = 'flex:1;min-width:180px;';
+    col.innerHTML = `<div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--yellow);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">${s.style}</div><div style="font-family:'DM Mono',monospace;font-size:9px;color:#444;margin-bottom:10px;">${s.description}</div>`;
+    (s.titles || []).forEach(title => {
+      const btn = document.createElement('div');
+      btn.className = 'title-opt';
+      btn.textContent = title;
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.title-opt').forEach(b => b.classList.remove('sel'));
+        btn.classList.add('sel');
+        selTitle = title;
+        // Update the newsletter header title live
+        const h1 = document.querySelector('#nl-out h1');
+        if (h1) h1.textContent = title;
+      });
+      col.appendChild(btn);
+    });
+    grid.appendChild(col);
+  });
+}
+
 // ─── SEND TO EMAIL ────────────────────────────────────────────
 async function sendToEmail() {
   const webhook = getWebhook();
@@ -881,6 +988,7 @@ async function sendToEmail() {
 
   const payload = {
     edition: edNum,
+    title: selTitle || '',
     theme: selTheme?.headline || '',
     newsletter_text: plainText,
     newsletter_html: document.getElementById('nl-out').innerHTML,
@@ -920,7 +1028,8 @@ async function regenerateDraft() {
 }
 
 function copyNL() {
-  navigator.clipboard.writeText(document.getElementById('nl-out').innerText)
+  const titleLine = selTitle ? selTitle + '\n\n' : '';
+  navigator.clipboard.writeText(titleLine + document.getElementById('nl-out').innerText)
     .then(() => alert('Newsletter copied.'));
 }
 
@@ -931,6 +1040,7 @@ function copyLI() {
 
 function reset() {
   selTheme = null;
+  selTitle = '';
   researchContext = '';
   pastEditionTopics = '';
   finalNewsletter = '';
