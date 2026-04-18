@@ -17,7 +17,6 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: var(--black); color: var(--white); font-family: 'DM Sans', sans-serif; min-height: 100vh; }
 
-  /* HEADER */
   header {
     background: var(--yellow);
     padding: 16px 32px;
@@ -33,7 +32,6 @@
 
   .container { max-width: 880px; margin: 0 auto; padding: 32px 20px; }
 
-  /* SETUP BANNER — shown until webhook configured */
   .setup-banner {
     background: #1a1200;
     border: 1px solid #3a2a00;
@@ -54,7 +52,6 @@
   .btn-save { background: var(--yellow); color: var(--black); border: none; padding: 8px 16px; font-family: 'Bebas Neue', sans-serif; font-size: 15px; letter-spacing: 1px; cursor: pointer; }
   .btn-save:hover { background: #e5cc00; }
 
-  /* STEPS */
   .steps { display: flex; border: 1px solid var(--border); margin-bottom: 32px; }
   .step { flex: 1; padding: 10px 12px; text-align: center; font-family: 'DM Mono', monospace; font-size: 10px; color: var(--gray); border-right: 1px solid var(--border); text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s; }
   .step:last-child { border-right: none; }
@@ -84,14 +81,14 @@
   .dot { width: 9px; height: 9px; border: 1px solid currentColor; border-radius: 50%; flex-shrink: 0; }
   .bucket.on .dot { background: var(--yellow); }
 
-  /* BUTTONS */
   .btn { background: var(--yellow); color: var(--black); border: none; padding: 12px 26px; font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 2px; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
   .btn:hover { background: #e5cc00; transform: translateY(-1px); }
   .btn:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
   .btn-ghost { background: transparent; color: var(--white); border: 1px solid #333; padding: 9px 18px; font-family: 'DM Mono', monospace; font-size: 11px; cursor: pointer; transition: all 0.2s; text-transform: uppercase; letter-spacing: 1px; }
   .btn-ghost:hover { border-color: var(--yellow); color: var(--yellow); }
+  .btn-back { background: transparent; color: var(--gray); border: 1px solid #222; padding: 7px 14px; font-family: 'DM Mono', monospace; font-size: 10px; cursor: pointer; transition: all 0.2s; text-transform: uppercase; letter-spacing: 1px; display: inline-flex; align-items: center; gap: 6px; margin-bottom: 16px; }
+  .btn-back:hover { border-color: #555; color: var(--white); }
 
-  /* LOADER */
   .loader { display: none; align-items: flex-start; gap: 16px; padding: 22px; background: var(--dim); border: 1px solid var(--border); margin-bottom: 16px; }
   .loader.on { display: flex; }
   .spin { width: 20px; height: 20px; border: 2px solid #333; border-top-color: var(--yellow); border-radius: 50%; animation: spin 0.7s linear infinite; flex-shrink: 0; margin-top: 2px; }
@@ -99,7 +96,6 @@
   .loader-body { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--gray); }
   .loader-body strong { color: var(--yellow); display: block; font-size: 12px; margin-bottom: 3px; }
 
-  /* THEME CARDS */
   .themes-wrap { display: flex; flex-direction: column; gap: 13px; margin-bottom: 20px; }
   .theme-card { border: 1px solid var(--border); padding: 20px; cursor: pointer; transition: all 0.25s; position: relative; }
   .theme-card:hover { border-color: #444; }
@@ -115,7 +111,11 @@
   .theme-signal { font-family: 'DM Mono', monospace; font-size: 10px; color: #444; border-left: 2px solid #222; padding-left: 9px; margin-top: 8px; line-height: 1.5; }
   .theme-card.sel .theme-signal { border-color: #444; color: #666; }
 
-  /* NEWSLETTER PREVIEW */
+  /* MORE THEMES section divider */
+  .more-themes-divider { display: flex; align-items: center; gap: 12px; margin: 20px 0 16px; }
+  .more-themes-divider span { font-family: 'DM Mono', monospace; font-size: 9px; color: #333; text-transform: uppercase; letter-spacing: 2px; white-space: nowrap; }
+  .more-themes-divider::before, .more-themes-divider::after { content: ''; flex: 1; height: 1px; background: #1a1a1a; }
+
   .nl-wrap { background: var(--white); color: var(--black); padding: 48px 44px; font-family: 'DM Sans', sans-serif; line-height: 1.75; }
   .nl-head { border-bottom: 3px solid var(--black); padding-bottom: 16px; margin-bottom: 28px; }
   .nl-brand { font-family: 'Bebas Neue', sans-serif; font-size: 38px; letter-spacing: 2px; }
@@ -132,11 +132,9 @@
   .nl-preview p { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--black); margin: 3px 0; }
   .nl-footer { border-top: 2px solid var(--black); margin-top: 30px; padding-top: 13px; font-family: 'DM Mono', monospace; font-size: 10px; color: #aaa; display: flex; justify-content: space-between; }
 
-  /* LINKEDIN */
   .li-box { background: var(--dim); border: 1px solid var(--border); padding: 20px; margin-top: 13px; }
   .li-text { font-size: 14px; color: var(--white); line-height: 1.75; white-space: pre-wrap; }
 
-  /* VALIDATION */
   .val-box { background: var(--black); border: 1px solid var(--border); padding: 20px; margin-top: 13px; }
   .val-table { width: 100%; border-collapse: collapse; font-family: 'DM Mono', monospace; font-size: 10px; color: #aaa; }
   .val-table th { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--border); color: var(--yellow); text-transform: uppercase; letter-spacing: 1px; }
@@ -151,11 +149,15 @@
   .err { background: #160000; border: 1px solid #3a0000; padding: 13px 17px; color: #ff6b6b; font-family: 'DM Mono', monospace; font-size: 11px; margin-bottom: 14px; display: none; }
   .err.on { display: block; }
 
-  /* EMAIL SEND STATUS */
   .send-status { display: none; align-items: center; gap: 12px; padding: 14px 18px; border: 1px solid var(--border); margin-top: 12px; font-family: 'DM Mono', monospace; font-size: 11px; color: var(--gray); }
   .send-status.on { display: flex; }
   .send-status.success { border-color: #2d5a2d; background: #0d1a0d; color: #6abf6a; }
   .send-status.fail { border-color: #3a0000; background: #160000; color: #ff6b6b; }
+
+  /* Past editions notice */
+  .past-notice { background: #0a0a00; border: 1px solid #2a2500; padding: 10px 14px; margin-bottom: 14px; font-family: 'DM Mono', monospace; font-size: 10px; color: #665500; display: none; }
+  .past-notice.on { display: block; }
+  .past-notice strong { color: #998800; display: block; margin-bottom: 3px; }
 
   @media(max-width:600px) {
     .bucket-grid { grid-template-columns: repeat(2,1fr); }
@@ -178,7 +180,7 @@
   <div class="setup-banner" id="setup-banner">
     <div class="setup-text">
       <strong>Session setup required</strong>
-      Paste your API key and Make webhook URL. Both are saved in your browser only — never in the code.
+      Paste your API key and Make webhook URL. Both are saved in your browser only.
     </div>
     <div style="display:flex;flex-direction:column;gap:8px;flex:1;min-width:260px;">
       <div class="setup-input-row">
@@ -204,7 +206,7 @@
     <div class="card">
       <div class="tag">Edition Setup</div>
       <div class="card-title">Configure This Run</div>
-      <div class="card-sub">Agent researches live B2B signals, proposes 3 themes, drafts your edition, and sends it to vikram.g@live.in.</div>
+      <div class="card-sub">Agent checks your past editions to avoid repeats, researches fresh B2B signals from multiple source types including YouTube, proposes 5 themes, drafts your edition, and sends it to vikram.g@live.in.</div>
 
       <div class="field">
         <label>Edition Number</label>
@@ -234,11 +236,12 @@
 
   <!-- PANEL 2: RESEARCH -->
   <div class="panel" id="p2">
+    <button class="btn-back" onclick="goBack(1)">&#8592; Back to Configure</button>
     <div class="loader on" id="res-loader">
       <div class="spin"></div>
       <div class="loader-body">
-        <strong id="res-status">Researching live signals...</strong>
-        <span id="res-sub">Pulling from analyst reports, news, Reddit, LinkedIn</span>
+        <strong id="res-status">Checking past editions for freshness...</strong>
+        <span id="res-sub">Fetching vikramsinhghatge.com/blogs to avoid repeats</span>
       </div>
     </div>
     <div class="err" id="res-err"></div>
@@ -246,18 +249,31 @@
 
   <!-- PANEL 3: THEMES -->
   <div class="panel" id="p3">
+    <button class="btn-back" onclick="goBack(1)">&#8592; Back to Configure</button>
     <div class="card">
       <div class="tag">Step 2 of 3 &mdash; Theme Selection</div>
       <div class="card-title">Pick Your Theme</div>
-      <div class="card-sub">Three directions built from current B2B signals. Pick one to draft the full edition.</div>
+      <div class="card-sub">Five directions built from fresh signals. None repeat your recent editions. Pick one to draft the full edition.</div>
     </div>
+
+    <!-- Past editions notice -->
+    <div class="past-notice" id="past-notice">
+      <strong>Freshness check complete</strong>
+      <span id="past-notice-text"></span>
+    </div>
+
     <div class="themes-wrap" id="themes-wrap"></div>
     <div class="err" id="theme-err"></div>
-    <button class="btn" id="draft-btn" onclick="doDraft()" disabled>&#8594; Draft &amp; Send to Email</button>
+
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+      <button class="btn" id="draft-btn" onclick="doDraft()" disabled>&#8594; Draft This Theme</button>
+      <button class="btn-ghost" id="more-btn" onclick="generateMoreThemes()">+ 5 More Themes</button>
+    </div>
   </div>
 
   <!-- PANEL 4: DRAFT + OUTPUT -->
   <div class="panel" id="p4">
+    <button class="btn-back" onclick="goBack(3)">&#8592; Back to Themes</button>
     <div class="loader on" id="draft-loader">
       <div class="spin"></div>
       <div class="loader-body">
@@ -286,7 +302,6 @@
         </div>
       </div>
 
-      <!-- SEND STATUS -->
       <div class="send-status" id="send-status"></div>
 
       <div class="actions">
@@ -302,7 +317,6 @@
 </div>
 
 <script>
-// ─── WEBHOOK SETUP ────────────────────────────────────────────
 const WEBHOOK_KEY = 'viks_mix_webhook';
 const APIKEY_KEY = 'viks_mix_apikey';
 
@@ -326,18 +340,18 @@ function saveSettings() {
 
 function getWebhook() { return localStorage.getItem(WEBHOOK_KEY) || ''; }
 function getApiKey() { return localStorage.getItem(APIKEY_KEY) || ''; }
-
 loadSettings();
 
-// ─── STATE ────────────────────────────────────────────────────
 let selTheme = null;
 let researchContext = '';
+let pastEditionTopics = '';
 let edNum = 59;
 let finalNewsletter = '';
 let finalLinkedIn = '';
 let finalValidation = [];
+let allThemes = [];
+let moreThemesBatch = 0;
 
-// ─── BUCKETS ──────────────────────────────────────────────────
 document.querySelectorAll('.bucket').forEach(b => {
   b.addEventListener('click', () => b.classList.toggle('on'));
 });
@@ -346,7 +360,6 @@ function getBuckets() {
   return [...document.querySelectorAll('.bucket.on')].map(b => b.dataset.v);
 }
 
-// ─── STEPS ───────────────────────────────────────────────────
 function setStep(n) {
   ['s1','s2','s3','s4'].forEach((id,i) => {
     const el = document.getElementById(id);
@@ -358,6 +371,13 @@ function setStep(n) {
     document.getElementById(id).classList.remove('active');
     if (i+1 === n) document.getElementById(id).classList.add('active');
   });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function goBack(targetStep) {
+  setStep(targetStep);
+  // Clear errors
+  document.querySelectorAll('.err').forEach(e => e.classList.remove('on'));
 }
 
 function showErr(id, msg) {
@@ -366,7 +386,6 @@ function showErr(id, msg) {
   el.classList.add('on');
 }
 
-// ─── CLAUDE API ───────────────────────────────────────────────
 const SYSTEM = `You are the editorial AI for Vik's M.I.X (Marketing Insights Exchange), a B2B marketing newsletter by Vikramsinh Ghatge, senior marketing leader in Pune, India with 12+ years in demand generation, content strategy, and AI-led marketing.
 
 VOICE: Smart, peer-to-peer, slightly witty, confident, never preachy. Senior marketer over coffee. Short sentences. Clean flow. No jargon. No fluff.
@@ -394,7 +413,12 @@ async function callClaude(messages, maxTokens = 2000) {
   if (!apiKey) throw new Error('API key not set. Please add it in the setup banner.');
   const res = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': apiKey,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-access': 'true'
+    },
     body: JSON.stringify({
       model: 'claude-sonnet-4-5',
       max_tokens: maxTokens,
@@ -405,6 +429,35 @@ async function callClaude(messages, maxTokens = 2000) {
   if (!res.ok) throw new Error('API error ' + res.status);
   const data = await res.json();
   return data.content.map(b => b.text || '').filter(Boolean).join('\n');
+}
+
+// ─── FETCH PAST EDITIONS ──────────────────────────────────────
+async function fetchPastEditionTopics() {
+  try {
+    // Use Claude to summarize past edition topics from the blog
+    const prompt = `Go to https://www.vikramsinhghatge.com/blogs and look at the blog post titles and summaries listed there.
+
+List the main themes and topics that have already been covered in past editions of Vik's M.I.X newsletter. Be specific about the angles, not just broad categories.
+
+For example: "The death of the MQL", "Buyer journey skipping the funnel", "Proof and preference replacing brand awareness", etc.
+
+Return as JSON only:
+{"past_topics": ["topic 1", "topic 2", "topic 3"], "summary": "one sentence summary of recurring themes to avoid"}`;
+
+    const raw = await callClaude([{ role: 'user', content: prompt }], 800);
+    const clean = raw.replace(/```json|```/g, '').trim();
+    const match = clean.match(/\{[\s\S]*\}/);
+    if (match) {
+      const parsed = JSON.parse(match[0]);
+      return {
+        topics: parsed.past_topics || [],
+        summary: parsed.summary || ''
+      };
+    }
+  } catch(e) {
+    // Silently fail — freshness check is best-effort
+  }
+  return { topics: [], summary: '' };
 }
 
 // ─── STEP 1: RESEARCH ─────────────────────────────────────────
@@ -418,55 +471,91 @@ async function startResearch() {
   const subEl = document.getElementById('res-sub');
 
   try {
-    statusEl.textContent = 'Scanning B2B signals for 2025/2026...';
-    subEl.textContent = 'Analyst reports, platform data, market signals';
+    statusEl.textContent = 'Checking past editions to avoid repeats...';
+    subEl.textContent = 'Fetching vikramsinhghatge.com/blogs';
+
+    const past = await fetchPastEditionTopics();
+    pastEditionTopics = past.topics.join(', ');
+
+    const avoidStr = past.topics.length > 0
+      ? `\n\nIMPORTANT: These topics have already been covered in past editions. Do NOT propose themes around these angles:\n${past.topics.map(t => '- ' + t).join('\n')}\n\nThe newsletter has previously focused on: ${past.summary}`
+      : '';
+
+    statusEl.textContent = 'Scanning fresh B2B signals from multiple sources...';
+    subEl.textContent = 'Analyst reports, platform data, community signals, YouTube, brand moves';
 
     const bucketStr = buckets.length ? buckets.join(', ') : 'AI in marketing, buyer behavior, demand generation';
     const dirStr = dir ? 'User direction: ' + dir : '';
 
+    // Diverse research queries to prevent repetition
+    const queryVariants = [
+      `2026 B2B marketing data research ${bucketStr}`,
+      `B2B SaaS CMO insights Q1 2026 demand generation`,
+      `B2B marketing AI tools adoption statistics 2025 2026`,
+      `YouTube B2B marketing thought leaders insights 2025 2026`,
+      `Forrester Gartner B2B buyer research 2025 2026`,
+      `LinkedIn HubSpot Salesforce B2B state of marketing report 2026`,
+      `B2B marketing India SaaS growth signals 2025 2026`,
+      `emerging B2B marketing channels strategies 2026`,
+      `B2B revenue marketing operations data 2026`,
+      `dark social community-led growth B2B signals 2025`
+    ];
+
+    // Use multiple angle categories for richer research
+    const researchAngles = [
+      { type: 'analyst', desc: 'Analyst reports (Gartner, Forrester, McKinsey, Bain, CB Insights) — 2025 or 2026 data' },
+      { type: 'platform', desc: 'Platform signals (LinkedIn, HubSpot, Salesforce, G2 state of reports)' },
+      { type: 'market', desc: 'Market signals (funding rounds, product launches, B2B SaaS earnings comments)' },
+      { type: 'community', desc: 'Community signals (what CMOs and demand gen leaders discuss on LinkedIn, Slack communities, Twitter/X)' },
+      { type: 'brand', desc: 'Real brand examples doing interesting or contrarian things in B2B marketing right now' },
+      { type: 'youtube', desc: 'YouTube: recent videos from B2B marketing thought leaders (Chris Walker, Dave Gerhardt, Rand Fishkin, Liam Moroney, Peep Laja). Cite specific video titles, channels, and key arguments or quotes from 2025 to 2026.' },
+      { type: 'contrarian', desc: 'Contrarian or unexpected signals: things most B2B marketers are getting wrong, myths being busted, data that challenges conventional wisdom' },
+      { type: 'india', desc: 'India-specific B2B/SaaS marketing signals: what Indian SaaS companies (Zoho, Freshworks, Chargebee, Leadsquared) are doing differently in go-to-market' }
+    ];
+
     const researchPrompt = `You are researching for Edition #${edNum} of Vik's M.I.X newsletter.
 
-Focus: ${bucketStr}
+Focus buckets: ${bucketStr}
 ${dirStr}
+${avoidStr}
 
-It is currently April 2026. Identify the most current and relevant B2B marketing signals, data points, and shifts happening right now in 2025 to 2026.
+It is April 2026. Surface the most CURRENT and VARIED B2B marketing signals happening right now.
 
-For each of the following source types, surface real findings:
-1. Analyst reports (Gartner, Forrester, McKinsey, Bain, CB Insights, Statista) — 2025 or 2026 data preferred
-2. Platform signals (LinkedIn, HubSpot, Salesforce, G2, TrustRadius state of reports)
-3. Market signals (funding rounds, product launches, earnings call comments from B2B SaaS companies)
-4. Community signals (what CMOs and demand gen leaders are actually discussing on LinkedIn and in Slack communities)
-5. Real brand examples of companies doing interesting things in B2B marketing right now
+CRITICAL: Use DIVERSE source types. Do not repeat the same types of signals. Cover each of these angles:
 
-For each finding include:
-- The specific claim or signal
-- A real quote if available (from a report, executive, analyst, or practitioner)
-- Source name and approximate date
-- Why it matters to a B2B marketing leader
+${researchAngles.map((a, i) => `${i+1}. [${a.type.toUpperCase()}] ${a.desc}`).join('\n')}
 
-Be specific. Use real numbers. No invented data.
+For each finding:
+- The specific claim or signal (be precise, use real numbers)
+- A real quote if available (from report, executive, analyst, YouTube creator, practitioner)
+- Source name and date
+- Why it matters to a senior B2B marketer right now
 
-Return as JSON:
+IMPORTANT: Include at least 2 YouTube-sourced findings from real videos by B2B marketing creators. Include at least 1 contrarian or unexpected finding. Include at least 1 India/Asia-Pacific signal.
+
+Return as JSON only:
 {"findings": [
   {
-    "category": "analyst/platform/market/community/brand",
+    "category": "analyst|platform|market|community|brand|youtube|contrarian|india",
     "headline": "...",
     "detail": "...",
-    "quote": "exact quote if available or empty string",
-    "attribution": "name, title, company or report name",
-    "source": "publication or platform name",
+    "quote": "exact quote if available, else empty string",
+    "attribution": "name, title, company or channel name",
+    "source": "publication, platform, YouTube channel, or report name",
     "date": "month year or year",
-    "relevance": "why this matters to B2B marketers"
+    "relevance": "why this matters to a B2B marketer"
   }
-]}`;
+]}
 
-    statusEl.textContent = 'Processing research signals...';
+Aim for 12 to 16 diverse findings. No two findings should feel like the same angle.`;
 
-    const resRaw = await callClaude([{ role:'user', content: researchPrompt }], 2000);
+    statusEl.textContent = 'Processing research from 8 source angles...';
+
+    const resRaw = await callClaude([{ role: 'user', content: researchPrompt }], 2500);
 
     let findings = [];
     try {
-      const clean = resRaw.replace(/```json|```/g,'').trim();
+      const clean = resRaw.replace(/```json|```/g, '').trim();
       const match = clean.match(/\{[\s\S]*\}/);
       if (match) {
         const parsed = JSON.parse(match[0]);
@@ -477,15 +566,23 @@ Return as JSON:
     }
 
     researchContext = findings.map(f => {
-      let ctx = `[${f.category?.toUpperCase()}] ${f.headline}: ${f.detail}`;
+      let ctx = `[${(f.category||'signal').toUpperCase()}] ${f.headline}: ${f.detail}`;
       if (f.quote) ctx += `\nQUOTE: "${f.quote}" -- ${f.attribution}, ${f.source} (${f.date})`;
       return ctx;
     }).join('\n\n');
 
-    if (!researchContext) researchContext = resRaw.substring(0, 2000);
+    if (!researchContext) researchContext = resRaw.substring(0, 3000);
 
-    statusEl.textContent = 'Building theme proposals...';
-    await proposeThemes(buckets, dir);
+    statusEl.textContent = 'Building 5 theme proposals...';
+    await proposeThemes(buckets, dir, avoidStr, 5, false);
+
+    // Show past editions notice
+    if (past.topics.length > 0) {
+      const notice = document.getElementById('past-notice');
+      document.getElementById('past-notice-text').textContent =
+        `Avoided ${past.topics.length} recent topics including: ${past.topics.slice(0,3).join(', ')}.`;
+      notice.classList.add('on');
+    }
 
   } catch(err) {
     document.getElementById('res-loader').classList.remove('on');
@@ -493,18 +590,25 @@ Return as JSON:
   }
 }
 
-// ─── STEP 2: PROPOSE THEMES ───────────────────────────────────
-async function proposeThemes(buckets, dir) {
+// ─── PROPOSE THEMES ───────────────────────────────────────────
+async function proposeThemes(buckets, dir, avoidStr, count, isMore) {
   try {
-    const prompt = `Propose 3 newsletter theme directions for Edition #${edNum} of Vik's M.I.X using this research:
+    const alreadyProposed = allThemes.map(t => t.headline).join(', ');
+    const alreadyStr = alreadyProposed ? `\n\nAlready proposed (do NOT repeat or overlap): ${alreadyProposed}` : '';
+
+    const prompt = `Propose ${count} newsletter theme directions for Edition #${edNum} of Vik's M.I.X using this research:
 
 ${researchContext}
+${avoidStr || ''}
+${alreadyStr}
 
 Each theme must:
 - Connect 3 angles into ONE coherent B2B marketing story
-- Be grounded in the actual research findings above
+- Be grounded in actual research findings above
 - Feel like a connected narrative, not 3 random topics
+- Be a FRESH angle not covered in past editions
 - Be relevant and timely for a senior B2B marketer reading in April 2026
+- Draw from VARIED source types (mix analyst, YouTube, brand, community signals)
 
 Respond ONLY in this JSON, no markdown, no preamble:
 {"themes":[
@@ -514,17 +618,16 @@ Respond ONLY in this JSON, no markdown, no preamble:
     "sections": ["section 1 title", "section 2 title", "section 3 title"],
     "signal": "1 sentence grounded in a specific data point from the research",
     "keyQuote": "the single most compelling quote from the research for this theme",
-    "keyQuoteSource": "attribution for that quote"
-  },
-  {...},
-  {...}
+    "keyQuoteSource": "attribution for that quote",
+    "sources": ["type1", "type2", "type3"]
+  }
 ]}`;
 
-    const response = await callClaude([{ role:'user', content: prompt }], 1200);
+    const response = await callClaude([{ role: 'user', content: prompt }], 1500);
 
     let parsed;
     try {
-      const clean = response.replace(/```json|```/g,'').trim();
+      const clean = response.replace(/```json|```/g, '').trim();
       const match = clean.match(/\{[\s\S]*\}/);
       parsed = JSON.parse(match[0]);
     } catch(e) {
@@ -532,8 +635,28 @@ Respond ONLY in this JSON, no markdown, no preamble:
     }
 
     document.getElementById('res-loader').classList.remove('on');
-    renderThemes(parsed.themes);
-    setStep(3);
+
+    const newThemes = parsed.themes || [];
+
+    if (isMore) {
+      // Append new themes below existing ones
+      moreThemesBatch++;
+      const wrap = document.getElementById('themes-wrap');
+
+      const divider = document.createElement('div');
+      divider.className = 'more-themes-divider';
+      divider.innerHTML = `<span>5 more themes generated</span>`;
+      wrap.appendChild(divider);
+
+      const startIndex = allThemes.length;
+      allThemes = allThemes.concat(newThemes);
+      appendThemeCards(newThemes, startIndex);
+    } else {
+      allThemes = newThemes;
+      document.getElementById('themes-wrap').innerHTML = '';
+      appendThemeCards(newThemes, 0);
+      setStep(3);
+    }
 
   } catch(err) {
     document.getElementById('res-loader').classList.remove('on');
@@ -541,34 +664,56 @@ Respond ONLY in this JSON, no markdown, no preamble:
   }
 }
 
-function renderThemes(themes) {
+function appendThemeCards(themes, startIndex) {
   const wrap = document.getElementById('themes-wrap');
-  wrap.innerHTML = '';
   themes.forEach((t, i) => {
+    const globalIndex = startIndex + i;
     const card = document.createElement('div');
     card.className = 'theme-card';
+    card.dataset.index = globalIndex;
     card.innerHTML = `
-      <div class="theme-num">0${i+1}</div>
+      <div class="theme-num">0${globalIndex+1}</div>
       <div class="theme-hl">${t.headline}</div>
       <div class="theme-narr">${t.narrative}</div>
-      <div class="theme-tags">${t.sections.map(s=>'<div class="theme-tag">'+s+'</div>').join('')}</div>
+      <div class="theme-tags">${t.sections.map(s => '<div class="theme-tag">' + s + '</div>').join('')}</div>
       <div class="theme-signal">${t.signal}</div>
       ${t.keyQuote ? `<div style="margin-top:10px;padding:8px 12px;border-left:2px solid #2a2a2a;font-size:11px;color:#555;font-style:italic;line-height:1.5;">"${t.keyQuote}" <span style="font-style:normal;font-family:'DM Mono',monospace;font-size:9px;color:#444;display:block;margin-top:3px;">-- ${t.keyQuoteSource}</span></div>` : ''}
     `;
     card.addEventListener('click', () => {
       document.querySelectorAll('.theme-card').forEach(c => c.classList.remove('sel'));
       card.classList.add('sel');
-      selTheme = themes[i];
+      selTheme = allThemes[globalIndex];
       document.getElementById('draft-btn').disabled = false;
     });
     wrap.appendChild(card);
   });
 }
 
+async function generateMoreThemes() {
+  const btn = document.getElementById('more-btn');
+  btn.disabled = true;
+  btn.textContent = 'Generating...';
+
+  const buckets = getBuckets();
+  const dir = document.getElementById('direction').value.trim();
+  const avoidStr = pastEditionTopics ? `\nDo NOT repeat these past edition topics: ${pastEditionTopics}` : '';
+
+  try {
+    await proposeThemes(buckets, dir, avoidStr, 5, true);
+  } catch(e) {
+    // error shown inline
+  }
+
+  btn.disabled = false;
+  btn.textContent = '+ 5 More Themes';
+}
+
 // ─── STEP 3: DRAFT ────────────────────────────────────────────
 async function doDraft() {
   if (!selTheme) return;
   setStep(4);
+  document.getElementById('draft-loader').classList.add('on');
+  document.getElementById('out-section').style.display = 'none';
 
   const statuses = ['Writing the opening...','Building section one...','Layering section two...','Crafting section three...','Writing the close...','Reviewing voice and flow...'];
   let si = 0;
@@ -608,6 +753,8 @@ Blockquote format to use:
 
 Target: 1600 to 1800 words.
 
+If you cite a YouTube video, reference it as: "In a [month year] video, [Creator Name] of [Channel] argued that..." — do not use a blockquote for YouTube unless it is a direct verbatim quote.
+
 After the newsletter add:
 VALIDATION_START
 [{"claim":"...","source":"...","date":"..."}]
@@ -618,22 +765,22 @@ LINKEDIN_START
 [post text here]
 LINKEDIN_END`;
 
-    const response = await callClaude([{ role:'user', content: prompt }], 4096);
+    const response = await callClaude([{ role: 'user', content: prompt }], 4096);
     clearInterval(iv);
 
     const valMatch = response.match(/VALIDATION_START([\s\S]*?)VALIDATION_END/);
     const liMatch = response.match(/LINKEDIN_START([\s\S]*?)LINKEDIN_END/);
 
     let nlText = response;
-    if (valMatch) nlText = nlText.replace(/VALIDATION_START[\s\S]*?VALIDATION_END/,'');
-    if (liMatch) nlText = nlText.replace(/LINKEDIN_START[\s\S]*?LINKEDIN_END/,'');
+    if (valMatch) nlText = nlText.replace(/VALIDATION_START[\s\S]*?VALIDATION_END/, '');
+    if (liMatch) nlText = nlText.replace(/LINKEDIN_START[\s\S]*?LINKEDIN_END/, '');
     nlText = nlText.trim();
 
     finalNewsletter = nlText;
     finalLinkedIn = liMatch ? liMatch[1].trim() : '';
 
     try {
-      finalValidation = valMatch ? JSON.parse(valMatch[1].trim().replace(/```json|```/g,'')) : [];
+      finalValidation = valMatch ? JSON.parse(valMatch[1].trim().replace(/```json|```/g, '')) : [];
     } catch(e) { finalValidation = []; }
 
     renderNL(nlText);
@@ -676,29 +823,29 @@ function renderNL(text) {
 
     if (inPreview) {
       if (t.startsWith('*') || t.startsWith('-')) {
-        html += '<p>&#8594; ' + t.replace(/^[\*\-]\s*/,'') + '</p>';
+        html += '<p>&#8594; ' + t.replace(/^[\*\-]\s*/, '') + '</p>';
         return;
       } else { html += '</div>'; inPreview = false; }
     }
 
     if (t.startsWith('> ')) {
       if (!inBQ) { html += '<blockquote>'; inBQ = true; }
-      const inner = t.replace(/^>\s*/,'');
+      const inner = t.replace(/^>\s*/, '');
       if (inner.startsWith('--') || inner.startsWith('&mdash;')) {
-        html += '<cite>' + inner.replace(/^--\s*/,'') + '</cite>';
+        html += '<cite>' + inner.replace(/^--\s*/, '') + '</cite>';
       } else {
         html += '<p>' + inner + '</p>';
       }
       return;
     } else if (inBQ) { html += '</blockquote>'; inBQ = false; }
 
-    if (t.startsWith('### ')) { html += '<h2>' + t.replace('### ','') + '</h2>'; return; }
-    if (t.startsWith('## ')) { html += '<h2>' + t.replace('## ','') + '</h2>'; return; }
-    if (t.startsWith('# ')) { html += '<h1>' + t.replace('# ','') + '</h1>'; return; }
+    if (t.startsWith('### ')) { html += '<h2>' + t.replace('### ', '') + '</h2>'; return; }
+    if (t.startsWith('## ')) { html += '<h2>' + t.replace('## ', '') + '</h2>'; return; }
+    if (t.startsWith('# ')) { html += '<h1>' + t.replace('# ', '') + '</h1>'; return; }
     if (t.startsWith('**') && t.endsWith('**') && t.length < 100) {
-      html += '<h2>' + t.replace(/\*\*/g,'') + '</h2>'; return;
+      html += '<h2>' + t.replace(/\*\*/g, '') + '</h2>'; return;
     }
-    html += '<p>' + t.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>') + '</p>';
+    html += '<p>' + t.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') + '</p>';
   });
 
   if (inBQ) html += '</blockquote>';
@@ -709,12 +856,12 @@ function renderNL(text) {
 }
 
 function renderVal(data) {
-  document.getElementById('val-body').innerHTML = (data||[]).map(r =>
-    `<tr><td>${r.claim||''}</td><td>${r.source||''}</td><td>${r.date||''}</td></tr>`
+  document.getElementById('val-body').innerHTML = (data || []).map(r =>
+    `<tr><td>${r.claim || ''}</td><td>${r.source || ''}</td><td>${r.date || ''}</td></tr>`
   ).join('');
 }
 
-// ─── SEND TO EMAIL via Make Webhook ───────────────────────────
+// ─── SEND TO EMAIL ────────────────────────────────────────────
 async function sendToEmail() {
   const webhook = getWebhook();
   if (!webhook) {
@@ -730,7 +877,6 @@ async function sendToEmail() {
   status.className = 'send-status on';
   status.textContent = 'Sending to Make webhook...';
 
-  // Build clean plain text version for email
   const plainText = document.getElementById('nl-out').innerText;
 
   const payload = {
@@ -786,15 +932,20 @@ function copyLI() {
 function reset() {
   selTheme = null;
   researchContext = '';
+  pastEditionTopics = '';
   finalNewsletter = '';
   finalLinkedIn = '';
   finalValidation = [];
+  allThemes = [];
+  moreThemesBatch = 0;
   document.getElementById('out-section').style.display = 'none';
   document.getElementById('themes-wrap').innerHTML = '';
   document.getElementById('draft-btn').disabled = true;
+  document.getElementById('more-btn').disabled = false;
+  document.getElementById('more-btn').textContent = '+ 5 More Themes';
+  document.getElementById('past-notice').classList.remove('on');
   document.querySelectorAll('.err').forEach(e => e.classList.remove('on'));
   document.getElementById('send-status').className = 'send-status';
-  // Clear API key from memory on reset (security)
   localStorage.removeItem(APIKEY_KEY);
   document.getElementById('apikey-input').value = '';
   document.getElementById('setup-banner').classList.remove('hidden');
