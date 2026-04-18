@@ -433,13 +433,17 @@ async function callClaude(messages, maxTokens = 2000) {
       'anthropic-dangerous-direct-browser-access': 'true'
     },
     body: JSON.stringify({
-      model: 'claude-sonnet-4-5',
+      model: 'claude-sonnet-4-6',
       max_tokens: maxTokens,
       system: SYSTEM,
       messages
     })
   });
-  if (!res.ok) throw new Error('API error ' + res.status);
+  if (!res.ok) {
+    let errDetail = '';
+    try { const e = await res.json(); errDetail = e.error?.message || JSON.stringify(e); } catch(_) {}
+    throw new Error('API error ' + res.status + (errDetail ? ': ' + errDetail : ''));
+  }
   const data = await res.json();
   return data.content.map(b => b.text || '').filter(Boolean).join('\n');
 }
